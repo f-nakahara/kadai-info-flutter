@@ -1,5 +1,5 @@
-/// 記事一覧タイプ
-enum ArticleListType {
+/// 記事カテゴリ
+enum ArticleCategory {
   /// お気に入り
   favorite,
 
@@ -26,4 +26,7 @@ enum ArticleListType {
 
   /// 就職
   recruit,
+
+  /// その他
+  other,
 }
