@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:kadai_info_flutter/core/exception/unidentified.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/i_wordpress_api_datasource.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/get_posts_request.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/get_posts_response.dart';
@@ -20,11 +19,8 @@ class WordPressApiDatasource implements IWordPressApiDatasource {
       '/posts',
       queryParameters: request.toMap(),
     );
-    if (result.statusCode == 200) {
-      final response = WPGetPostsResponse.fromResponse(result);
-      return response;
-    }
-    throw UnidentifiedException();
+    final response = WPGetPostsResponse.fromResponse(result);
+    return response;
   }
 
   @override

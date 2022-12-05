@@ -1,3 +1,4 @@
+import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/category_enum.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/context.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/order.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/model/order_by.dart';
@@ -12,8 +13,8 @@ class WPGetPostsRequest {
   final List<int>? author;
   final WPOrderBy orderBy;
   final WPOrder order;
-  final List<int>? categories;
-  final List<int>? categoriesExclude;
+  final List<WPCategoryEnum>? categories;
+  final List<WPCategoryEnum>? categoriesExclude;
   final WPStatus status;
   final bool embed;
 
@@ -32,6 +33,9 @@ class WPGetPostsRequest {
   });
 
   Map<String, dynamic> toMap() {
+    categories?.remove(WPCategoryEnum.other);
+    categoriesExclude?.remove(WPCategoryEnum.other);
+
     final data = {
       'context': context.name,
       'page': page,
@@ -40,8 +44,8 @@ class WPGetPostsRequest {
       'author': author?.join(','),
       'orderby': orderBy.name,
       'order': order.name,
-      'categories': categories?.join(','),
-      'categories_exclude': categoriesExclude?.join(','),
+      'categories': categories?.map((e) => e.id).join(','),
+      'categories_exclude': categoriesExclude?.map((e) => e.id).join(','),
       'status': status.name,
       '_embed': embed,
     };
