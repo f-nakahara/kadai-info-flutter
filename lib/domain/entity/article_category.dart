@@ -27,6 +27,9 @@ enum ArticleCategory {
   /// 就職
   recruit,
 
+  /// サークルINFO
+  circleInfo,
+
   /// その他
   other,
 }
