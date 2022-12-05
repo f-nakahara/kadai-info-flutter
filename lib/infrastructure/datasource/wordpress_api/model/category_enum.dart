@@ -47,6 +47,8 @@ enum WPCategoryEnum {
         return WPCategoryEnum.entertainment;
       case ArticleCategory.recruit:
         return WPCategoryEnum.recruit;
+      case ArticleCategory.circleInfo:
+        return WPCategoryEnum.circleInfo;
       default:
         return WPCategoryEnum.other;
     }
