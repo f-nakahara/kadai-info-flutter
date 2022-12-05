@@ -1,0 +1,4 @@
+enum WPOrder {
+  asc,
+  desc;
+}
