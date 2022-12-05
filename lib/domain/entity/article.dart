@@ -1,4 +1,4 @@
-import 'author.dart';
+import 'article_author.dart';
 
 /// 記事
 class Article {
@@ -6,7 +6,7 @@ class Article {
   final String title;
   final DateTime publishedAt;
   final String thumbnailUrl;
-  final Author author;
+  final ArticleAuthor author;
 
   Article({
     required this.id,

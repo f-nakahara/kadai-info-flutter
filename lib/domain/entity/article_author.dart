@@ -1,9 +1,9 @@
 /// 著者
-class Author {
+class ArticleAuthor {
   final String id;
   final String name;
 
-  Author({
+  ArticleAuthor({
     required this.id,
     required this.name,
   });
