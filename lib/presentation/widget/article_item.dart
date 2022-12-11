@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kadai_info_flutter/presentation/page/article_page.dart';
 import 'package:kadai_info_flutter/presentation/state/article_category.dart';
+import 'package:kadai_info_flutter/presentation/util/navigator_util.dart';
 
 import '../state/article_list.dart';
 import 'author_item.dart';
@@ -32,12 +33,11 @@ class ArticleItem extends ConsumerWidget {
       ),
       trailing: _ThumbnailImage(thumbnailUrl: state.thumbnailUrl),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return ArticlePage(id: id, category: category);
-          },
+        NavigatorUtil.push(
+          context: context,
+          page: ArticlePage(id: id, category: category),
           fullscreenDialog: true,
-        ));
+        );
       },
     );
   }
@@ -50,7 +50,7 @@ class _ThumbnailImage extends StatelessWidget {
     required this.thumbnailUrl,
   }) : super(key: key);
 
-  final String thumbnailUrl;
+  final String? thumbnailUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +58,15 @@ class _ThumbnailImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: AspectRatio(
         aspectRatio: 1.91 / 1,
-        child: Image.network(
-          thumbnailUrl,
-          fit: BoxFit.cover,
-        ),
+        child: thumbnailUrl != null
+            ? Image.network(
+                thumbnailUrl!,
+                fit: BoxFit.cover,
+              )
+            : Image.asset(
+                'asset/no_image.png',
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
