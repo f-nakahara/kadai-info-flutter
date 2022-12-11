@@ -5,7 +5,7 @@ class Article {
   final String id;
   final String title;
   final DateTime publishedAt;
-  final String thumbnailUrl;
+  final String? thumbnailUrl;
   final ArticleAuthor author;
   final String link;
 

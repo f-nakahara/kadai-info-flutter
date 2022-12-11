@@ -72,7 +72,7 @@ extension on WPPost {
       title: title.rendered,
       publishedAt: date,
       thumbnailUrl:
-          embedded!.featuredMedia.first.mediaDetail.sizes.medium.sourceUrl,
+          embedded!.featuredMedia.first.mediaDetail.sizes.medium?.sourceUrl,
       author: ArticleAuthor(
         id: '${embedded!.author.first.id}',
         name: embedded!.author.first.name,
