@@ -1,24 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kadai_info_flutter/presentation/page/article_page.dart';
+import 'package:kadai_info_flutter/presentation/state/article_category.dart';
 
+import '../state/article_list.dart';
 import 'author_item.dart';
 
 /// 記事
-class ArticleItem extends StatelessWidget {
-  const ArticleItem({Key? key}) : super(key: key);
+class ArticleItem extends ConsumerWidget {
+  const ArticleItem({
+    Key? key,
+    required this.id,
+    required this.category,
+  }) : super(key: key);
+
+  final String id;
+  final ArticleCategory category;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(articleStateProviders(
+        ArticleStateParam(category: category, articleId: id)));
     return ListTile(
-      title: const _TitleText(),
+      title: _TitleText(title: state.title),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          AuthorItem(),
-          _FavoriteButton(),
+        children: [
+          AuthorItem(author: state.author),
+          const _FavoriteButton(),
         ],
       ),
-      trailing: const _ThumbnailImage(),
-      onTap: () {},
+      trailing: _ThumbnailImage(thumbnailUrl: state.thumbnailUrl),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return ArticlePage(id: id, category: category);
+          },
+          fullscreenDialog: true,
+        ));
+      },
     );
   }
 }
@@ -27,7 +47,10 @@ class ArticleItem extends StatelessWidget {
 class _ThumbnailImage extends StatelessWidget {
   const _ThumbnailImage({
     Key? key,
+    required this.thumbnailUrl,
   }) : super(key: key);
+
+  final String thumbnailUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +59,7 @@ class _ThumbnailImage extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1.91 / 1,
         child: Image.network(
-          'https://kadai-info.com/wordpress/wp-content/uploads/2021/12/curry-eyecatch-300x208.jpg',
+          thumbnailUrl,
           fit: BoxFit.cover,
         ),
       ),
@@ -46,13 +69,18 @@ class _ThumbnailImage extends StatelessWidget {
 
 /// 記事タイトル
 class _TitleText extends StatelessWidget {
-  const _TitleText({Key? key}) : super(key: key);
+  const _TitleText({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      '【1時間で本格スパイスカレー⁈】3種のスパイスで一からカレー作ってみた！',
-      style: TextStyle(
+    return Text(
+      title,
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 13,
       ),
