@@ -7,6 +7,7 @@ class Article {
   final DateTime publishedAt;
   final String thumbnailUrl;
   final ArticleAuthor author;
+  final String link;
 
   Article({
     required this.id,
@@ -14,5 +15,6 @@ class Article {
     required this.publishedAt,
     required this.thumbnailUrl,
     required this.author,
+    required this.link,
   });
 }
