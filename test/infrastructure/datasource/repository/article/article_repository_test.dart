@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kadai_info_flutter/domain/entity/article_category.dart';
@@ -8,6 +11,7 @@ void main() {
   late IArticleRepository articleRepository;
 
   setUp(() {
+    dotenv.testLoad(fileInput: File('.env').readAsStringSync());
     final container = ProviderContainer();
     articleRepository = container.read(articleRepositoryProvider);
   });

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kadai_info_flutter/infrastructure/datasource/wordpress_api/i_wordpress_api_datasource.dart';
@@ -10,6 +13,7 @@ void main() {
   late IWordPressApiDatasource wordPressApiDatasource;
 
   setUp(() {
+    dotenv.testLoad(fileInput: File('.env').readAsStringSync());
     final container = ProviderContainer();
     wordPressApiDatasource = container.read(wordpressApiDatasourceProvider);
   });
