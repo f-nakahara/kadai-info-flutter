@@ -10,6 +10,7 @@ class WPPost {
   final int author;
   final WPTitle title;
   final WPEmbedded? embedded;
+  final String link;
 
   WPPost({
     required this.status,
@@ -18,6 +19,7 @@ class WPPost {
     required this.author,
     required this.title,
     required this.embedded,
+    required this.link,
   });
 
   factory WPPost.fromMap(Map<String, dynamic> map) {
@@ -30,6 +32,7 @@ class WPPost {
       embedded: map['_embedded'] != null
           ? WPEmbedded.fromMap(map['_embedded'])
           : null,
+      link: map['link'],
     );
   }
 }
