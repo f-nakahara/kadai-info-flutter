@@ -9,4 +9,9 @@ abstract class IArticleRepository {
     required List<ArticleCategory> categories,
     required List<ArticleCategory> categoriesExclude,
   });
+
+  Future<ArticleList> findFavoriteAll({
+    required int page,
+    required int perPage,
+  });
 }
